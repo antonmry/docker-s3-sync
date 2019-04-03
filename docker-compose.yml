@@ -1,0 +1,11 @@
+version: '3'
+services:
+  docker-s3-sync:
+    image: "antonmry/docker-s3-sync:latest"
+    environment:
+      - DEBUG=1
+      - ACCESS_KEY=YOUR_ACCESS_KEY
+      - SECRET_KEY=YOUR_SECRET_KEY
+      - SOURCE_PATH=s3://my-bucket/site-uploads
+      - DESTINATION_PATH=/var/www/uploads
+      - BUCKET_LOCATION=eu-west-1

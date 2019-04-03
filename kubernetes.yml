@@ -1,0 +1,36 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: docker-s3-sync
+spec:
+  selector:
+    matchLabels:
+      app: sync
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sync
+    spec:
+      containers:
+      - name: docker-s3-sync
+        image: antonmry/sync-with-s3
+        volumeMounts:
+        - mountPath: /var/www/uploads          
+          name: test
+        env:
+        - name: ACCESS_KEY 
+          value: "YOUR_ACCESS_KEY"
+        - name: SECRET_KEY
+          value: "YOUR_SECRET_KEY"
+        - name: SOURCE_PATH
+          value: "s3://my-bucket/site-uploads"
+        - name: DESTINATION_PATH
+          value: "/var/www/uploads"
+        - name: BUCKET_LOCATION
+          value: "eu-west-1"
+
+      volumes:
+      - name: test
+        persistentVolumeClaim:
+          claimName: test-pvc
