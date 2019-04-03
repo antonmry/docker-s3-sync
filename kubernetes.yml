@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: docker-s3-sync
-        image: antonmry/sync-with-s3
+        image: antonmry/docker-s3-sync
         volumeMounts:
         - mountPath: /var/www/uploads          
           name: test

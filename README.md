@@ -29,3 +29,5 @@ You could use [CronJobs](https://kubernetes.io/docs/concepts/workloads/controlle
 
 
 ## Docker Hub
+
+Image available at [Docker Hub](https://hub.docker.com/r/antonmry/docker-s3-sync)
