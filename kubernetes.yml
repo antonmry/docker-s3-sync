@@ -1,36 +1,28 @@
-apiVersion: apps/v1 
-kind: Deployment
+apiVersion: v1 
+kind: Pod
 metadata:
   name: docker-s3-sync
 spec:
-  selector:
-    matchLabels:
-      app: sync
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: sync
-    spec:
-      containers:
-      - name: docker-s3-sync
-        image: antonmry/docker-s3-sync
-        volumeMounts:
-        - mountPath: /var/www/uploads          
-          name: test
-        env:
-        - name: ACCESS_KEY 
-          value: "YOUR_ACCESS_KEY"
-        - name: SECRET_KEY
-          value: "YOUR_SECRET_KEY"
-        - name: SOURCE_PATH
-          value: "s3://my-bucket/site-uploads"
-        - name: DESTINATION_PATH
-          value: "/var/www/uploads"
-        - name: BUCKET_LOCATION
-          value: "eu-west-1"
+  containers:
+  - name: docker-s3-sync
+    image: antonmry/docker-s3-sync
+    volumeMounts:
+    - mountPath: /var/www/uploads          
+      name: test
+    env:
+    - name: ACCESS_KEY 
+      value: "YOUR_ACCESS_KEY"
+    - name: SECRET_KEY
+      value: "YOUR_SECRET_KEY"
+    - name: SOURCE_PATH
+      value: "s3://my-bucket/site-uploads"
+    - name: DESTINATION_PATH
+      value: "/var/www/uploads"
+    - name: BUCKET_LOCATION
+      value: "eu-west-1"
+  restartPolicy: Never
 
-      volumes:
-      - name: test
-        persistentVolumeClaim:
-          claimName: test-pvc
+  volumes:
+  - name: test
+    persistentVolumeClaim:
+      claimName: test-pvc
